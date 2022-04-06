@@ -3,6 +3,7 @@ import pygame
 from bullet import Bullet
 from zombie import Zombie
 from time import sleep
+import json
 
 def check_keydown_events(event, ai_settings, screen, stats, sb, play_button, slasher, zombies, bullets):
     """Respond to keypresses"""
@@ -222,5 +223,14 @@ def slasher_hit(ai_settings, screen, stats, sb, slasher, zombies, bullets):
         sleep(0.5)
 
     else:
+        update_high_score(stats)
         stats.game_active = False
         pygame.mouse.set_visible(True)
+
+def update_high_score(stats):
+    """Write the high score to the json file"""
+    with open('high_score.json', 'r') as fp:
+        data = json.load(fp)
+        data['high_score'] = stats.high_score
+    with open("high_score.json", 'w') as fp:
+        json.dump(data, fp) 

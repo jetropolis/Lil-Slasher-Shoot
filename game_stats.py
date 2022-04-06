@@ -1,3 +1,5 @@
+import json
+
 class GameStats():
     """Track statistics for Lil Slasher Shoot"""
 
@@ -8,7 +10,8 @@ class GameStats():
         #Start Lil Slasher Shoot in an inactive state
         self.game_active = False
         #High score should never be reset
-        self.high_score = 0
+        high_score_json = json.load(open("high_score.json"))
+        self.high_score = int(high_score_json["high_score"])
         self.level = 1
 
     def reset_stats(self):
